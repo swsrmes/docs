@@ -1,0 +1,26 @@
+matrix:
+- name: Docs
+  aspell:
+    lang: en
+    # But why not British English tho (ಥ _ʖಥ)
+    d: en_GB
+  sources:
+    - ./**/*.md
+  dictionary:
+    output: build/spellcheck/dictionaries/aspell.en.dic
+    wordlists:
+      - build/spellcheck/config/aspell.en.txt
+  pipeline:
+    - pyspelling.filters.markdown:
+        markdown_extensions:
+          - markdown.extensions.extra:
+    - pyspelling.filters.html:
+        comments: false
+        attributes:
+          - alt
+        ignores:
+          - ':matches(code, pre)'
+          - 'code'
+          - 'pre'
+          - 'blockquote'
+          - 'endcode'
